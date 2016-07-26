@@ -1,9 +1,9 @@
+#!/usr/bin/env python
+import signal
 import sys
-
-# Read list of numbers
-numbers = [float(line) for line in open(sys.argv[1])]
-n_bins = len(numbers)/12
-
-# Print lists of numbers, labeled 'b'
-for i in range(n_bins):
-    print 'b', ' '.join(map(str, numbers[i*12:(i+1)*12]))
+def signal_handler(signal, frame):
+    print('You ran "docker stop!"')
+    sys.exit(0)
+signal.signal(signal.SIGTERM, signal_handler)
+print('Run "docker stop"!')
+signal.pause()
